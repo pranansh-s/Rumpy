@@ -33,7 +33,7 @@ client.on('ready', () => {
 client.on('message', async(mssg) => {
     if(mssg.content.startsWith('?rm ')){
 	if(mssg.content.substr(4) == 'help'){
-	    mssg.channel.send("It's not rocket science bb, just put a subreddit name after `?rm`. Like so `?rm monke`");
+	    mssg.channel.send("It's not rocket science bb, just put a subreddit name after `?rm`.\n Like so `?rm monke`");
 	}
 	else{
 	    const img = await getRandomPost(mssg.content.substr(4), 0);
