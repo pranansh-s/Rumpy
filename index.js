@@ -11,7 +11,7 @@ const getRandomPost = async(subreddit) => {
         const subr = await bot.getSubreddit(subreddit);
         const post = await subr.getRandomSubmission();        
     
-        if(post.is_video) return getRandomPost(subreddit);
+        if(post.is_video || post.url.includes('gallery') || post.url.includes('comments')) return getRandomPost(subreddit);
         return (post.url) ? post.url : `Could not find subreddit: **${subreddit}**`;
     }
     catch{
