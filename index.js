@@ -6,7 +6,7 @@ require('dotenv').config();
 const client = new Client();
 let bot;
 
-const getRandomPost = async(subreddit cnt) => {
+const getRandomPost = async(subreddit, cnt) => {
     try{
         const subr = await bot.getSubreddit(subreddit);
         const post = await subr.getRandomSubmission();        
