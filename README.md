@@ -1,3 +1,5 @@
+<img src="Icon.png" alt="icon" width="100"/>
+
 # Rumpy
 Discord Reddit bot to get randomised posts from your favourite sub-reddit.
 
