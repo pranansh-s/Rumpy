@@ -6,12 +6,13 @@ require('dotenv').config();
 const client = new Client();
 let bot;
 
-const getRandomPost = async(subreddit) => {
+const getRandomPost = async(subreddit, cnt) => {
     try{
         const subr = await bot.getSubreddit(subreddit);
         const post = await subr.getRandomSubmission();        
-    
-        if(post.is_video) return getRandomPost(subreddit);
+
+	if(cnt >= 10) return "Could not find suitable post";
+        if(post.is_video || post.url.includes('gallery') || post.url.includes('comments')) return getRandomPost(subreddit, cnt + 1);
         return (post.url) ? post.url : `Could not find subreddit: **${subreddit}**`;
     }
     catch{
@@ -31,11 +32,13 @@ client.on('ready', () => {
 
 client.on('message', async(mssg) => {
     if(mssg.content.startsWith('?rm ')){
-        const img = await getRandomPost(mssg.content.substr(4));
-        mssg.channel.send(img);
-    }
-    else if(mssg.content.startsWith('?')){
-        
+	if(mssg.content.substr(4) == 'help'){
+	    mssg.channel.send("It's not rocket science bb, just put a subreddit name after `?rm`. Like so `?rm monke`");
+	}
+	else{
+	    const img = await getRandomPost(mssg.content.substr(4), 0);
+            mssg.channel.send(img);
+	}
     }
 });
 
