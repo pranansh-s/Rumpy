@@ -1,6 +1,5 @@
-const { Client } = require('discord.js');
+const { Client, GatewayIntentBits, Partials } = require('discord.js');
 const snoowrap = require('snoowrap');
-const axios = require('axios');
 require('dotenv').config();
 
 const client = new Client();
@@ -21,24 +20,24 @@ const getRandomPost = async(subreddit, cnt) => {
 }
 
 client.on('ready', () => {
-    console.log('bot ready');
     bot = new snoowrap({
         userAgent: 'blob',
         clientId: 'ySQ511mZjopXSw',
         clientSecret: 'ZBTwgSog5sWBgwXrG5CyiXvWgZ0g-Q',
         refreshToken: '369819263364-QUXpS0WT6cSp1T9qUuPq1U3Mmk3ogg'
     });
+    
 });
 
 client.on('message', async(mssg) => {
     if(mssg.content.startsWith('?rm ')){
-	if(mssg.content.substr(4) == 'help'){
-	    mssg.channel.send("It's not rocket science bb, just put a subreddit name after `?rm`. Like so `?rm monke`");
-	}
-	else{
-	    const img = await getRandomPost(mssg.content.substr(4), 0);
+        if(mssg.content.substring(4) == 'help'){
+            mssg.channel.send("It's not rocket science bb, just put a subreddit name after `?rm`. Like so `?rm monke`");
+        }
+        else{
+            const img = await getRandomPost(mssg.content.substring(4), 0);
             mssg.channel.send(img);
-	}
+        }
     }
 });
 
